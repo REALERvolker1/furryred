@@ -85,9 +85,23 @@ def BuildCode():
 
 def InsertCode():
     if shutil.which('python3') is not None:
-        os.system("python3 scripts/insert.py")
+        result = os.system("python3 scripts/insert.py")
     else:
-        os.system("python scripts/insert.py")
+        result = os.system("python scripts/insert.py")
+
+    if result != 0:
+        sys.exit(1)
+
+
+def BuildFurryRed():
+    """Apply the role-aware furry NPC/trainer art layer to Radical Red."""
+    if shutil.which('python3') is not None:
+        result = os.system("python3 scripts/furryred_patch.py --input test.gba --output furryred.gba")
+    else:
+        result = os.system("python scripts/furryred_patch.py --input test.gba --output furryred.gba")
+
+    if result != 0:
+        sys.exit(1)
 
 
 def ClearFromTo(rom, from_: int, to_: int):
@@ -111,6 +125,7 @@ def main():
             EditInsert(offset)
             BuildCode()
             InsertCode()
+            BuildFurryRed()
             rom.close()
 
     except FileNotFoundError:
@@ -120,4 +135,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
