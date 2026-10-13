@@ -27,3 +27,6 @@ Cover Art.png
 
 # pycache files
 *.pyc
+
+# Native mGBA screenshots from local v1.1 verification
+furryred-v1.1-*.png

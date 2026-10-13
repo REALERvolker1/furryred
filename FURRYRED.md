@@ -38,6 +38,39 @@ No base ROM or Nintendo sprite sheets are checked into this repository.
 
 ## Build
 
+### Vanilla US FireRed v1.1, sprites only
+
+On the `furry-npc-v1.1` branch, apply the artwork directly to a clean v1.1 ROM:
+
+```sh
+python3 scripts/furryred_v11.py --input "Pokemon - Fire Red Version (U).gba"
+```
+
+This produces `furryred-v1.1.gba` and manifests in `build/furryred-v1.1/`.
+It requires Python 3.10 or newer and no compiler or external Python packages.
+The input must have SHA-1 `dd5945db9b930750cb39d00c84da8571feebf417`.
+Other revisions and previously modified ROMs are rejected before writing output.
+Input and output must be different files.
+
+This path preserves vanilla gameplay. It replaces all 148 trainer front pictures
+and NPC graphics IDs 16 through 91, including Celio, the Teachy TV host, and gym
+guides. It retains the original trainer allocation sizes, NPC image-table lengths,
+palettes, OAM, and animation commands. East-facing animations mirror west-facing
+frames as in vanilla FireRed. The artwork uses the original generator's static
+poses for walking frames. Intro portraits, trainer backsprites, player overworld
+graphics, Pokémon, and non-NPC field objects remain unchanged.
+
+Run the focused tests, optionally checking the supplied private ROM:
+
+```sh
+python3 scripts/test_furryred_v11.py
+python3 scripts/test_furryred_v11.py --rom "Pokemon - Fire Red Version (U).gba"
+```
+
+ROMs, emulator saves, and generated build artifacts are ignored by Git.
+
+### Original CFRU engine build, v1.0 only
+
 Put the same `BPRE0.gba` expected by the existing Radical Red build in the repository root, then run:
 
 ```sh
