@@ -104,6 +104,17 @@ def BuildFurryRed():
         sys.exit(1)
 
 
+def AddFurryRedIntroDisclaimer():
+    """Extend Oak's opening speech with the FurryRed premise disclaimer."""
+    if shutil.which('python3') is not None:
+        result = os.system("python3 scripts/furryred_dialog.py --rom furryred.gba")
+    else:
+        result = os.system("python scripts/furryred_dialog.py --rom furryred.gba")
+
+    if result != 0:
+        sys.exit(1)
+
+
 def ClearFromTo(rom, from_: int, to_: int):
     rom.seek(from_)
     for i in range(0, to_ - from_):
@@ -126,6 +137,7 @@ def main():
             BuildCode()
             InsertCode()
             BuildFurryRed()
+            AddFurryRedIntroDisclaimer()
             rom.close()
 
     except FileNotFoundError:
